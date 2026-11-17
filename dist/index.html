@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="hu" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="description" content="Élő UTC-idő és személyre szabható világórák.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; connect-src 'self' https://timeapi.io; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <title>Világóra</title>
+  <link rel="stylesheet" href="./style.css">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="apple-touch-icon" href="./icons/apple.png">
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="brand"><i aria-hidden="true">◷</i> Világóra</div>
+    <div class="controls">
+      <div class="formats" role="group" aria-label="Időformátum">
+        <button id="h24" type="button" aria-pressed="true">24 órás</button>
+        <button id="h12" type="button" aria-pressed="false">12 órás</button>
+      </div>
+      <button id="theme" type="button"
+        aria-label="Világos téma bekapcsolása"
+        title="Világos téma bekapcsolása">☀</button>
+    </div>
+  </header>
+
+  <main>
+    <noscript>A világóra használatához engedélyezd a JavaScriptet.</noscript>
+
+    <section class="hero" aria-labelledby="utc-title">
+      <div>
+        <div class="live">Élő idő</div>
+        <h1 id="utc-title">UTC-idő</h1>
+        <div class="reading">
+          <span id="utc-clock"></span><small id="utc-period"></small>
+        </div>
+        <div class="date" id="utc-date"></div>
+      </div>
+      <div class="dial" aria-hidden="true">
+        <span class="hand hour"></span>
+        <span class="hand minute"></span>
+        <span class="hand second"></span>
+      </div>
+    </section>
+
+    <p id="source">Készülék rendszerideje</p>
+    <button id="sync" type="button">Idő szinkronizálása</button>
+
+    <section aria-labelledby="clocks-title">
+      <div class="section-head">
+        <div>
+          <h2 id="clocks-title">Saját óráim</h2>
+          <p>Válassz UTC-eltolást, vagy keress várost egy új órához.</p>
+        </div>
+        <form id="add-form">
+          <label class="sr" for="offset">UTC-eltolás</label>
+          <select id="offset"></select>
+          <button class="add" type="submit">+ Hozzáadás</button>
+        </form>
+      </div>
+
+      <div class="search">
+        <label for="city">Város keresése</label>
+        <input id="city" type="search" autocomplete="off"
+          spellcheck="false"
+          aria-describedby="search-help"
+          aria-controls="results"
+          placeholder="Budapest, London, Kathmandu…">
+        <p id="search-help" class="meta">
+          Legalább 2 karaktert írj be. Legfeljebb 30 találat jelenik meg;
+          további találatokhoz pontosítsd a keresést.
+        </p>
+        <div id="results"></div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+      <p id="empty" class="empty" hidden>Még nincs hozzáadott órád.</p>
+      <p class="note">
+        A rögzített UTC-eltolások a nyári időszámításkor is változatlanok.
+        A városórák a böngésző időzónaszabályait követik.
+      </p>
+      <div id="status" class="sr" role="status" aria-atomic="true"></div>
+    </section>
+
+    <p id="offline">Offline előkészítés folyamatban…</p>
+    <button id="update" type="button" hidden>Új verzió betöltése</button>
+
+    <details>
+      <summary>Telepítés és adatvédelem</summary>
+      <p>
+        iPhone-on Safari → Megosztás → Főképernyőhöz adás.
+        Támogatott asztali és Android-böngészőben a böngésző
+        telepítési menüje használható.
+      </p>
+      <p>
+        A beállításokat ezen a készüléken tároljuk.
+        Az időszinkronizálás a
+        <a href="https://timeapi.io/" rel="noreferrer">TimeAPI</a>
+        szolgáltatással kommunikál, amely így megkapja az IP-címedet.
+        Az alkalmazás nem tartalmaz követőkódot.
+        A tárhelyszolgáltató a weboldal letöltésekor hálózati adatokat
+        kezelhet. Az offline gyorsítótárat a böngésző törölheti.
+      </p>
+      <p>
+        Az időszinkronizálás hálózati késleltetéssel jár,
+        ezért a kijelzett idő becslés. Hiba esetén az órák a korábbi
+        szinkronizálás vagy a készülék rendszerideje alapján működnek.
+      </p>
+    </details>
+
+    <footer class="meta">
+      <p>
+        Városadatok:
+        <a href="https://www.geonames.org/" rel="noreferrer">GeoNames</a>,
+        <a href="https://creativecommons.org/licenses/by/4.0/"
+          rel="license noreferrer">CC BY 4.0</a>.
+        Az alkalmazás GeoNames-adatokból származó,
+        JSON-formátumra átalakított városadatokat használ.
+        Betöltéskor a használható rekordokat szűri,
+        és ékezetfüggetlen keresési mezőket képez.
+        Az eredeti városneveket a megjelenítéshez megőrzi.
+      </p>
+      <p>
+        Az időzónaszabályokat a böngésző biztosítja;
+        frissességük a böngésző és az operációs rendszer
+        frissítéseitől függ.
+      </p>
+    </footer>
+  </main>
+</div>
+<script type="module" src="./app.js"></script>
+</body>
+</html>
