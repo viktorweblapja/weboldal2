@@ -2,7 +2,7 @@
 
 Statikus világóra-webalkalmazás városkereséssel, automatikus időzónákkal, rögzített UTC-eltolásokkal és offline támogatással.
 
-Az eredeti Világóra továbbfejlesztett változata. A működés külön JavaScript-modulokban található. Az eredeti projekt kiinduló állapota: `acf13962e05116b224d85ec027926ed2494a5a22`.
+Az eredeti Világóra továbbfejlesztett változata. A működés külön JavaScript-modulokban található.
 
 Nincs szükség buildelésre. A webalkalmazás fájljai közvetlenül a repository gyökerében találhatók.
 
