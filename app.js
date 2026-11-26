@@ -207,18 +207,15 @@ function tick() {
   }
 
   const angles = [
-    date.getHours() % 12 * 30 + date.getUTCMinutes() / 2,
-    date.getMinutes() * 6,
-    date.getSeconds() * 6
+    (d.getHours() % 12) * 30 + d.getMinutes() / 2,
+    d.getMinutes() * 6,
+    d.getSeconds() * 6
   ];
 
   document.querySelectorAll('.hand').forEach((hand, index) => {
     hand.style.setProperty('--angle', angles[index] + 'deg');
-
-  angles.forEach((angle, index) => {
-    hands[index]?.style.setProperty('--angle', angle + 'deg');
   });
-
+  
   let label = source.synced
     ? navigator.onLine
       ? 'Interneten szinkronizált időből becsült idő'
