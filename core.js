@@ -5,6 +5,7 @@ export const normalize = text =>
     .toLowerCase();
 
 export function offsetLabel(value) {
+  if (value === 0) return 'UTC'; 
   const absolute = Math.abs(value);
   return 'UTC' +
     (value < 0 ? '−' : '+') +
