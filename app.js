@@ -183,13 +183,15 @@ function render() {
 
 function tick() {
   const now = source.now();
+  const d = new Date(now);
+  const localClock = { offset: -d.getTimezoneOffset() };
   const utc = {
     clock: {offset: 0},
     time: $('utc-clock'),
     period: $('utc-period'),
     date: $('utc-date')
   };
-
+  utc.clock = localClock;
   for (const view of [utc, ...cards]) {
     const parts = clockParts(now, view.clock, settings.hour12);
     view.time.textContent = parts.time;
@@ -204,12 +206,14 @@ function tick() {
     }
   }
 
-  const date = new Date(now);
   const angles = [
-    date.getUTCHours() % 12 * 30 + date.getUTCMinutes() / 2,
-    date.getUTCMinutes() * 6,
-    date.getUTCSeconds() * 6
+    date.getHours() % 12 * 30 + date.getUTCMinutes() / 2,
+    date.getMinutes() * 6,
+    date.getSeconds() * 6
   ];
+
+  document.querySelectorAll('.hand').forEach((hand, index) => {
+    hand.style.setProperty('--angle', angles[index] + 'deg');
 
   angles.forEach((angle, index) => {
     hands[index]?.style.setProperty('--angle', angle + 'deg');
