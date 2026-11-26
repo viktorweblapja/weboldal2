@@ -267,7 +267,7 @@ $('theme').onclick = () => {
 for (let offset = -720; offset <= 840; offset += 15) {
   $('offset').add(new Option(offsetLabel(offset), String(offset)));
 }
-$('offset').value = '330';
+$('offset').value = '0';
 
 function add(clock) {
   const duplicate = settings.clocks.some(
